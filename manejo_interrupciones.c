@@ -106,15 +106,20 @@ void reubicar_proceso() {
                 break;
 
             } else  {
+                struct Proceso *aux = NULL;
+                if (actual->siguiente != NULL) {
+                    aux = actual->siguiente;
+                }
+
                 while (actual->siguiente != NULL && actual->prioridad >= actual->siguiente->prioridad) {
                     struct Proceso *temporal = actual->siguiente->siguiente;
                     anterior->siguiente = actual->siguiente;
                      actual->siguiente->siguiente = actual;
                     actual->siguiente = temporal;
                    
-                    pivote = anterior->siguiente;
                     anterior = anterior->siguiente;
                 }
+                if (aux != NULL) pivote = aux;
                 return;
             }
         }
